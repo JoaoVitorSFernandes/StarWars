@@ -1,61 +1,136 @@
-using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using StarWars.Models;
+using StarWars.Extensions;
+using StarWars.ViewModels;
 using StarWars.ViewModels.StarshipViewModel;
+using StarWars.Interfaces.StarshipsInterfaces;
 
 namespace StarWars.Controllers;
 
 [ApiController]
 public class StarshipController : ControllerBase
 {
-    private readonly IConfiguration _configuration;
+    private readonly StarshipManager _starshipManager;
 
-    public StarshipController(IConfiguration configuration)
-    {
-        _configuration = configuration;
-    }
-
-    [HttpGet("v1/starship")]
+    [HttpGet("v1/starship/")]
     public async Task<IActionResult> GetAsync()
     {
-        return Ok();
+        var starships = await _starshipManager.GetAll();
+
+        if(starships == null)
+            return NotFound(new ResultViewModel<Starship>("It looks like we couldn't find any starships in our registry."));
+    
+        return Ok(new ResultViewModel<IEnumerable<Starship>>(starships));
     }
+
 
     [HttpGet("v1/starship/{id:int}")]
     public async Task<IActionResult> GetByIdAsync(
         [FromRoute] int id)
     {
-        return Ok();
+        var starship = await _starshipManager.GetById(id);
+
+        if (starship == null)
+            return NotFound(new ResultViewModel<Starship>("It looks like we couldn't find any starship in our registry."));
+
+        return Ok(new ResultViewModel<Starship>(starship));
     }
+
+
+    [HttpGet("v1/starship/manufacturer/{name}")]
+    public async Task<IActionResult> GetByName(
+        [FromRoute] string name)
+    {
+        var starships = await _starshipManager.GetByName(name);
+
+        if(starships == null)
+            return NotFound(new ResultViewModel<Starship>("It looks like we couldn't find any starships in our registry."));
+
+        return Ok(new ResultViewModel<IEnumerable<Starship>>(starships));
+    }
+
+
+    [HttpGet("v1/starship/manufacturer/{model}")]
+    public async Task<IActionResult> GetByModel(
+        [FromRoute] string model)
+    {
+        var starships = await _starshipManager.GetByModel(model);
+
+        if(starships == null)
+            return NotFound(new ResultViewModel<Starship>("It looks like we couldn't find any starships in our registry."));
+
+        return Ok(new ResultViewModel<IEnumerable<Starship>>(starships));
+    }
+
+
+    [HttpGet("v1/starship/manufacturer/{manufacturer}")]
+    public async Task<IActionResult> GetByManufacturer(
+        [FromRoute] string manufacturer)
+    {
+        var starships = await _starshipManager.GetByManufacturer(manufacturer);
+
+        if(starships == null)
+            return NotFound(new ResultViewModel<Starship>("It looks like we couldn't find any starships in our registry."));
+
+        return Ok(new ResultViewModel<IEnumerable<Starship>>(starships));
+    }
+
 
     [HttpPost("v1/starship")]
-    public async Task<IActionResult> PostAsync()
+    public async Task<IActionResult> PostAsync(
+        [FromBody] EditorStarshipViewModel model)
     {
-        return Created();
+
+        if (!model.IntFieldsIsValid())
+            return BadRequest("The input value cannot be negative.");
+
+        var starship = new Starship(
+            model.name,
+            model.model,
+            model.manufacturer,
+            Convert.ToInt32(model.costInCredits),
+            model.crew,
+            Convert.ToInt32(model.passengers),
+            Convert.ToInt32(model.cargoCapacity),
+            model.starshipClass
+        );
+
+        await _starshipManager.Insert(starship);
+
+        return Created($"v1/starship/{starship.Id}", new ResultViewModel<Starship>(starship));
     }
 
-    [HttpPut("v1/starship")]
-    public async Task<IActionResult> PutAsync()
+
+    [HttpPut("v1/starship/{id:int}")]
+    public async Task<IActionResult> PutAsync(
+        [FromRoute] int id,
+        [FromBody] EditorStarshipViewModel model)
     {
-        return Created();
+        if (!model.IntFieldsIsValid())
+            return BadRequest("The input value cannot be negative.");
+
+        var starship = await _starshipManager.GetById(id);
+
+        starship.Name = model.name;
+        starship.Model = model.model;
+        starship.Manufacturer = model.manufacturer;
+        starship.CostInCredits = Convert.ToInt32(model.costInCredits);
+        starship.Passengers = Convert.ToInt32(model.passengers);
+        starship.CargoCapacity = Convert.ToInt32(model.cargoCapacity);
+        starship.StarshipClass = model.starshipClass;
+
+        await _starshipManager.Update(id, starship);
+
+        return Ok(new ResultViewModel<Starship>(starship));
     }
 
-    [HttpDelete("v1/starship")]
-    public async Task<IActionResult> DeleteAsync()
+
+    [HttpDelete("v1/starship/{id:int}")]
+    public async Task<IActionResult> DeleteAsync(
+        [FromRoute] int id)
     {
-        return Ok();
-    }
-
-    [HttpGet("v1/starship/forsale")]
-    public async Task<IActionResult> GetStarshipForSaleAsync()
-    {
-        using HttpClient client = new HttpClient();
-
-        var response = await client.GetAsync(_configuration.GetValue<string>("SWAPI:Connection"));
-        var content = response.Content.ReadAsStringAsync().Result;
-        var result = JsonSerializer.Deserialize<StarshipResponseViewModel>(content);
-
-        return Ok(result);
+        await _starshipManager.Delete(id);
+        return Ok(new ResultViewModel<string>("Starship registration successfully deleted", null));
     }
 
 }

@@ -17,61 +17,61 @@ public class StarshipMap : IEntityTypeConfiguration<Starship>
             .ValueGeneratedOnAdd()
             .UseIdentityColumn();
 
-        builder.Property(x => x.name)
+        builder.Property(x => x.Name)
             .IsRequired()
             .HasColumnName("Name")
             .HasColumnType("NVARCHAR")
             .HasMaxLength(60);
         
-        builder.Property(x => x.model)
+        builder.Property(x => x.Model)
             .IsRequired()
             .HasColumnName("Model")
             .HasColumnType("NVARCHAR")
             .HasMaxLength(60);
 
-        builder.Property(x => x.manufacturer)
+        builder.Property(x => x.Manufacturer)
             .IsRequired()
             .HasColumnName("Manufacturer")
             .HasColumnType("NVARCHAR")
             .HasMaxLength(60);
 
-        builder.Property(x => x.costInCredits)
+        builder.Property(x => x.CostInCredits)
             .IsRequired()
             .HasColumnName("CostInCredits")
             .HasColumnType("INT")
             .HasMaxLength(50);
 
-        builder.Property(x => x.crew)
+        builder.Property(x => x.Crew)
             .IsRequired()
             .HasColumnName("Crew")
             .HasColumnType("NVARCHAR")
             .HasMaxLength(60);
 
-        builder.Property(x => x.passengers)
+        builder.Property(x => x.Passengers)
             .IsRequired()
             .HasColumnName("QuantPassengers")
             .HasColumnType("INT")
             .HasMaxLength(20);
 
-        builder.Property(x => x.cargoCapacity)
+        builder.Property(x => x.CargoCapacity)
             .IsRequired()
             .HasColumnName("CargoCapacity")
             .HasColumnType("INT")
             .HasMaxLength(20);
 
-        builder.Property(x => x.starshipClass)
+        builder.Property(x => x.StarshipClass)
             .IsRequired()
             .HasColumnName("StarshipClass")
             .HasColumnType("NVARCHAR")
             .HasMaxLength(60);
 
-        builder.HasIndex(x => x.name, "IX_MissionLog_Name")
+        builder.HasIndex(x => x.Name, "IX_MissionLog_Name")
             .IsUnique();
 
-        builder.HasIndex(x => x.model, "IX_MissionLog_Model")
+        builder.HasIndex(x => x.Model, "IX_MissionLog_Model")
             .IsUnique();
 
-        builder.HasIndex(x => x.manufacturer, "IX_Starship_Manafacturer")
+        builder.HasIndex(x => x.Manufacturer, "IX_Starship_Manafacturer")
             .IsUnique();
 
         builder.HasOne(x => x.User)
