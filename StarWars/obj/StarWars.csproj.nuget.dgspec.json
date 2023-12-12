@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Seidor\\dev\\StarWars\\StarWars\\StarWars.csproj": {}
+    "C:\\Users\\vitor\\Desktop\\StarWars\\StarWars\\StarWars.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Seidor\\dev\\StarWars\\StarWars\\StarWars.csproj": {
+    "C:\\Users\\vitor\\Desktop\\StarWars\\StarWars\\StarWars.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Seidor\\dev\\StarWars\\StarWars\\StarWars.csproj",
+        "projectUniqueName": "C:\\Users\\vitor\\Desktop\\StarWars\\StarWars\\StarWars.csproj",
         "projectName": "StarWars",
-        "projectPath": "C:\\Users\\Seidor\\dev\\StarWars\\StarWars\\StarWars.csproj",
-        "packagesPath": "C:\\Users\\Seidor\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Seidor\\dev\\StarWars\\StarWars\\obj\\",
+        "projectPath": "C:\\Users\\vitor\\Desktop\\StarWars\\StarWars\\StarWars.csproj",
+        "packagesPath": "C:\\Users\\vitor\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\vitor\\Desktop\\StarWars\\StarWars\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Seidor\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\vitor\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -38,6 +40,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
@@ -53,6 +63,14 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.0, )"
+            },
+            "SecureIdentity": {
+              "target": "Package",
+              "version": "[1.0.4, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.5.0, )"
             }
           },
           "imports": [

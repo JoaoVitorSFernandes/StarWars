@@ -23,7 +23,7 @@ public class StarshipSaleManager : IStarshipSaleManager
             return GetSWAPIStarships();
         });
 
-        return await Starships;
+        return Starships;
     }
 
     public async Task<IEnumerable<EditorStarshipViewModel>> GetByManufacturer(string starshipManufacturer)

@@ -11,4 +11,11 @@ public sealed class User
     public IList<Role> Roles { get; set; }
     public IList<MissionLog> MissionLogs { get; set; }
     public IList<Starship> Starships { get; set; }
+
+    public User(string name, string email, string patent)
+    {
+        Name = name;
+        Email = email;
+        Patent = patent;
+    }
 }
