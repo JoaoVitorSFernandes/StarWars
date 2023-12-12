@@ -26,29 +26,32 @@ public class StarshipSaleManager : IStarshipSaleManager
         return Starships;
     }
 
-    public async Task<IEnumerable<EditorStarshipViewModel>> GetByManufacturer(string starshipManufacturer)
+    public async Task<IEnumerable<EditorStarshipViewModel>> GetByManufacturer(string starshipManufacturer, int page = 0, int pageSize = 10)
     {
         var starships = await GetAll();
 
-        starships = starships.Where(x => x.manufacturer == starshipManufacturer).ToList();
+        starships = starships.Where(x => x.manufacturer == starshipManufacturer)
+                        .Skip(page * pageSize).Take(pageSize).ToList();
 
         return starships;
     }
 
-    public async Task<IEnumerable<EditorStarshipViewModel>> GetByModel(string starshipModel)
+    public async Task<IEnumerable<EditorStarshipViewModel>> GetByModel(string starshipModel, int page = 0, int pageSize = 10)
     {
         var starships = await GetAll();
 
-        starships = starships.Where(x => x.model == starshipModel).ToList();
+        starships = starships.Where(x => x.model == starshipModel)
+                        .Skip(page * pageSize).Take(pageSize).ToList();
 
         return starships;
     }
 
-    public async Task<IEnumerable<EditorStarshipViewModel>> GetByName(string starshipName)
+    public async Task<IEnumerable<EditorStarshipViewModel>> GetByName(string starshipName, int page = 0, int pageSize = 10)
     {
         var starships = await GetAll();
 
-        starships = starships.Where(x => x.name == starshipName).ToList();
+        starships = starships.Where(x => x.name == starshipName)
+                        .Skip(page * pageSize).Take(pageSize).ToList();
 
         return starships;
     }

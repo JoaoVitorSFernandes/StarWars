@@ -17,9 +17,9 @@ public class StarshipController : ControllerBase
     {
         var starships = await _starshipManager.GetAll();
 
-        if(starships == null)
+        if (starships == null)
             return NotFound(new ResultViewModel<Starship>("It looks like we couldn't find any starships in our registry."));
-    
+
         return Ok(new ResultViewModel<IEnumerable<Starship>>(starships));
     }
 
@@ -37,26 +37,30 @@ public class StarshipController : ControllerBase
     }
 
 
-    [HttpGet("v1/starship/manufacturer/{name}")]
+    [HttpGet("v1/starship/name/{name}")]
     public async Task<IActionResult> GetByName(
-        [FromRoute] string name)
+        [FromRoute] string name,
+        [FromQuery] int page = 0,
+        [FromQuery] int pageSize = 10)
     {
-        var starships = await _starshipManager.GetByName(name);
+        var starships = await _starshipManager.GetByName(name, page, pageSize);
 
-        if(starships == null)
+        if (starships == null)
             return NotFound(new ResultViewModel<Starship>("It looks like we couldn't find any starships in our registry."));
 
         return Ok(new ResultViewModel<IEnumerable<Starship>>(starships));
     }
 
 
-    [HttpGet("v1/starship/manufacturer/{model}")]
+    [HttpGet("v1/starship/model/{model}")]
     public async Task<IActionResult> GetByModel(
-        [FromRoute] string model)
+        [FromRoute] string model,
+        [FromQuery] int page = 0,
+        [FromQuery] int pageSize = 10)
     {
-        var starships = await _starshipManager.GetByModel(model);
+        var starships = await _starshipManager.GetByModel(model, page, pageSize);
 
-        if(starships == null)
+        if (starships == null)
             return NotFound(new ResultViewModel<Starship>("It looks like we couldn't find any starships in our registry."));
 
         return Ok(new ResultViewModel<IEnumerable<Starship>>(starships));
@@ -65,11 +69,13 @@ public class StarshipController : ControllerBase
 
     [HttpGet("v1/starship/manufacturer/{manufacturer}")]
     public async Task<IActionResult> GetByManufacturer(
-        [FromRoute] string manufacturer)
+        [FromRoute] string manufacturer,
+        [FromQuery] int page = 0,
+        [FromQuery] int pageSize = 10)
     {
-        var starships = await _starshipManager.GetByManufacturer(manufacturer);
+        var starships = await _starshipManager.GetByManufacturer(manufacturer, page, pageSize);
 
-        if(starships == null)
+        if (starships == null)
             return NotFound(new ResultViewModel<Starship>("It looks like we couldn't find any starships in our registry."));
 
         return Ok(new ResultViewModel<IEnumerable<Starship>>(starships));

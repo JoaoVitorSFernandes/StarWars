@@ -5,7 +5,7 @@ using StarWars.Models.Exceptions;
 
 namespace StarWars.Interfaces.Base;
 
-public class BaseRepository<T> : IBaseRepository<T> where T : class
+public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
 {
     protected readonly StarWarsDataContext _context;
     public BaseRepository(StarWarsDataContext context)
@@ -17,7 +17,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
     public virtual async Task<T> GetById(int id)
         => await _context.Set<T>().FindAsync(id);
 
-    public async Task Insert(T entity)
+    public virtual async Task Insert(T entity)
     {
         try
         {
@@ -30,7 +30,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
         }
     }
 
-    public async Task Update(int id, T entity)
+    public virtual async Task Update(int id, T entity)
     {
         try
         {
@@ -44,7 +44,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
         
     }
 
-    public async Task Delete(int id)
+    public virtual async Task Delete(int id)
     {
         var entity = await GetById(id);
 

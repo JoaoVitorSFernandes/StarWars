@@ -29,6 +29,12 @@ public class MaintenanceLogMap : IEntityTypeConfiguration<MaintenanceLog>
             .HasColumnType("NVARCHAR")
             .HasMaxLength(300);
 
+        builder.Property(x => x.MaintenanceStatus)
+            .IsRequired()
+            .HasColumnName("MaintenanceStatus")
+            .HasColumnType("NVARCHAR")
+            .HasMaxLength(10);
+
         builder.Property(x => x.StarDate)
             .IsRequired()
             .HasColumnName("StarDate")

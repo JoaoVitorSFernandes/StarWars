@@ -4941,26 +4941,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\vitor\\.nuget\\packages\\": {}
+    "C:\\Users\\Seidor\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\vitor\\Desktop\\StarWars\\StarWars\\StarWars.csproj",
+      "projectUniqueName": "C:\\Users\\Seidor\\dev\\StarWars\\StarWars\\StarWars.csproj",
       "projectName": "StarWars",
-      "projectPath": "C:\\Users\\vitor\\Desktop\\StarWars\\StarWars\\StarWars.csproj",
-      "packagesPath": "C:\\Users\\vitor\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\vitor\\Desktop\\StarWars\\StarWars\\obj\\",
+      "projectPath": "C:\\Users\\Seidor\\dev\\StarWars\\StarWars\\StarWars.csproj",
+      "packagesPath": "C:\\Users\\Seidor\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Seidor\\dev\\StarWars\\StarWars\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\vitor\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Seidor\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

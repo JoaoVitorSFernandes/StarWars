@@ -23,6 +23,12 @@ public class MissionLogMap : IEntityTypeConfiguration<MissionLog>
             .HasColumnType("NVARCHAR")
             .HasMaxLength(50);
 
+        builder.Property(x => x.MissionStats)
+            .IsRequired()
+            .HasColumnName("MissionStats")
+            .HasColumnType("NVARCHAR")
+            .HasMaxLength(10);
+
         builder.Property(x => x.Subject)
             .IsRequired()
             .HasColumnName("Subject")

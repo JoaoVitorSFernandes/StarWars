@@ -14,6 +14,7 @@ public sealed class Starship
     public int CargoCapacity { get; set; }
     public string StarshipClass { get; set; }
 
+    public int UserId { get; set; }
     public User User { get; set; }
     public IList<MissionLog> MissionLogs { get; set; }
     public IList<MaintenanceLog> MaintenanceLogs { get; set; }

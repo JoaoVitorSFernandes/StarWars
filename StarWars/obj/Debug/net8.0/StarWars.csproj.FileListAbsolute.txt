@@ -401,3 +401,10 @@ C:\Users\vitor\Desktop\StarWars\StarWars\obj\Debug\net8.0\refint\StarWars.dll
 C:\Users\vitor\Desktop\StarWars\StarWars\obj\Debug\net8.0\StarWars.pdb
 C:\Users\vitor\Desktop\StarWars\StarWars\obj\Debug\net8.0\StarWars.genruntimeconfig.cache
 C:\Users\vitor\Desktop\StarWars\StarWars\obj\Debug\net8.0\ref\StarWars.dll
+C:\Users\Seidor\dev\StarWars\StarWars\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Seidor\dev\StarWars\StarWars\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\Seidor\dev\StarWars\StarWars\bin\Debug\net8.0\SecureIdentity.dll
+C:\Users\Seidor\dev\StarWars\StarWars\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Seidor\dev\StarWars\StarWars\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Seidor\dev\StarWars\StarWars\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Seidor\dev\StarWars\StarWars\obj\Debug\net8.0\StarWars.MvcApplicationPartsAssemblyInfo.cs

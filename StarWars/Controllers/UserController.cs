@@ -63,5 +63,4 @@ public class UserController : ControllerBase
         await _userManager.Delete(id);
         return Ok(new ResultViewModel<string>("User registration successfully deleted", null));
     }
-
 }
