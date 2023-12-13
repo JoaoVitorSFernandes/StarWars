@@ -100,6 +100,7 @@ namespace StarWars.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Report = table.Column<string>(type: "NVARCHAR(300)", maxLength: 300, nullable: false),
                     Report1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MaintenanceStatus = table.Column<string>(type: "NVARCHAR(10)", maxLength: 10, nullable: false),
                     StarDate = table.Column<DateTime>(type: "SMALLDATETIME", maxLength: 60, nullable: false),
                     EndDate = table.Column<DateTime>(type: "SMALLDATETIME", maxLength: 60, nullable: false),
                     Duration = table.Column<double>(type: "FLOAT", maxLength: 60, nullable: false),
@@ -123,6 +124,7 @@ namespace StarWars.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     MissionName = table.Column<string>(type: "NVARCHAR(50)", maxLength: 50, nullable: false),
+                    MissionStats = table.Column<string>(type: "NVARCHAR(10)", maxLength: 10, nullable: false),
                     Report = table.Column<string>(type: "NVARCHAR(300)", maxLength: 300, nullable: false),
                     Report1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StarDate = table.Column<DateTime>(type: "SMALLDATETIME", maxLength: 60, nullable: false),
@@ -169,14 +171,50 @@ namespace StarWars.Migrations
                 column: "StarshipId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MissionLog_MissionName",
+                table: "MissionLog",
+                column: "MissionName",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_MissionLog_StarshipId",
                 table: "MissionLog",
                 column: "StarshipId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MissionLog_Model",
+                table: "Starship",
+                column: "Model",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MissionLog_Name",
+                table: "Starship",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Starship_Manafacturer",
+                table: "Starship",
+                column: "Manufacturer",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Starship_UserId",
                 table: "Starship",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_Email",
+                table: "User",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_Patent",
+                table: "User",
+                column: "Patent",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserMissionLog_UserId",

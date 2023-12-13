@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using StarWars.Data;
 using StarWars.Interfaces.Base;
 using StarWars.Interfaces.MaintenanceLogInterfaces;
@@ -11,13 +12,10 @@ public class MaintenanceLogManager : BaseRepository<MaintenanceLog>, IMaintenanc
     {
     }
 
-    public Task<IEnumerable<MissionLog>> GetByDate(DateTime starDate, DateTime endDate)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<IEnumerable<MaintenanceLog>> GetByDate(DateTime starDate, DateTime endDate)
+        => await _context.MaintanenceLogs.AsNoTracking().Where(x => x.StarDate == starDate && x.EndDate == endDate).ToListAsync();
 
-    public Task<IEnumerable<MissionLog>> GetByStat(string stat)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<IEnumerable<MaintenanceLog>> GetByStat(string status)
+        => await _context.MaintanenceLogs.AsNoTracking().Where(x => x.MaintenanceStatus == status)
+                    .OrderByDescending(x => x.EndDate).ToListAsync();
 }

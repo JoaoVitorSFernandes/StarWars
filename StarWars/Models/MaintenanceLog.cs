@@ -15,4 +15,19 @@ public sealed class MaintenanceLog
 
     public MaintenanceLog()
         => Duration = EndDate.Subtract(StarDate).TotalHours;
+
+    public MaintenanceLog(string subject, string report, string maintenanceStatus, DateTime starDate, DateTime endDate, int starshipId)
+    {
+        Subject = subject;
+        Report = report;
+        MaintenanceStatus = maintenanceStatus;
+        StarDate = starDate;
+        EndDate = endDate;
+        Duration = SetDuration(starDate, endDate);
+        StarshipId = starshipId;
+    }
+
+    public double SetDuration(DateTime starDate, DateTime endDate)
+        => endDate.Subtract(starDate).TotalHours;
+
 }

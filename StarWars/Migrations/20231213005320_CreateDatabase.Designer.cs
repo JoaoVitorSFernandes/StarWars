@@ -12,8 +12,8 @@ using StarWars.Data;
 namespace StarWars.Migrations
 {
     [DbContext(typeof(StarWarsDataContext))]
-    [Migration("20231205172602_AddIndexs")]
-    partial class AddIndexs
+    [Migration("20231213005320_CreateDatabase")]
+    partial class CreateDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,12 @@ namespace StarWars.Migrations
                         .HasMaxLength(60)
                         .HasColumnType("SMALLDATETIME")
                         .HasColumnName("EndDate");
+
+                    b.Property<string>("MaintenanceStatus")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("NVARCHAR")
+                        .HasColumnName("MaintenanceStatus");
 
                     b.Property<string>("Report")
                         .IsRequired()
@@ -96,6 +102,12 @@ namespace StarWars.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("NVARCHAR")
                         .HasColumnName("MissionName");
+
+                    b.Property<string>("MissionStats")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("NVARCHAR")
+                        .HasColumnName("MissionStats");
 
                     b.Property<string>("Report")
                         .IsRequired()
@@ -164,66 +176,66 @@ namespace StarWars.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("cargoCapacity")
+                    b.Property<int>("CargoCapacity")
                         .HasMaxLength(20)
                         .HasColumnType("INT")
                         .HasColumnName("CargoCapacity");
 
-                    b.Property<int>("costInCredits")
+                    b.Property<int>("CostInCredits")
                         .HasMaxLength(50)
                         .HasColumnType("INT")
                         .HasColumnName("CostInCredits");
 
-                    b.Property<string>("crew")
+                    b.Property<string>("Crew")
                         .IsRequired()
                         .HasMaxLength(60)
                         .HasColumnType("NVARCHAR")
                         .HasColumnName("Crew");
 
-                    b.Property<string>("manufacturer")
+                    b.Property<string>("Manufacturer")
                         .IsRequired()
                         .HasMaxLength(60)
                         .HasColumnType("NVARCHAR")
                         .HasColumnName("Manufacturer");
 
-                    b.Property<string>("model")
+                    b.Property<string>("Model")
                         .IsRequired()
                         .HasMaxLength(60)
                         .HasColumnType("NVARCHAR")
                         .HasColumnName("Model");
 
-                    b.Property<string>("name")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(60)
                         .HasColumnType("NVARCHAR")
                         .HasColumnName("Name");
 
-                    b.Property<int>("passengers")
+                    b.Property<int>("Passengers")
                         .HasMaxLength(20)
                         .HasColumnType("INT")
                         .HasColumnName("QuantPassengers");
 
-                    b.Property<string>("starshipClass")
+                    b.Property<string>("StarshipClass")
                         .IsRequired()
                         .HasMaxLength(60)
                         .HasColumnType("NVARCHAR")
                         .HasColumnName("StarshipClass");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id")
                         .HasName("PK_StarshipId");
 
                     b.HasIndex("UserId");
 
-                    b.HasIndex(new[] { "model" }, "IX_MissionLog_Model")
+                    b.HasIndex(new[] { "Model" }, "IX_MissionLog_Model")
                         .IsUnique();
 
-                    b.HasIndex(new[] { "name" }, "IX_MissionLog_Name")
+                    b.HasIndex(new[] { "Name" }, "IX_MissionLog_Name")
                         .IsUnique();
 
-                    b.HasIndex(new[] { "manufacturer" }, "IX_Starship_Manafacturer")
+                    b.HasIndex(new[] { "Manufacturer" }, "IX_Starship_Manafacturer")
                         .IsUnique();
 
                     b.ToTable("Starship", (string)null);
