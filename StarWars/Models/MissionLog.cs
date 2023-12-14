@@ -15,6 +15,18 @@ public sealed class MissionLog
     public Starship Starship { get; set; }
     public IList<User> Users { get; set; }
 
-    public MissionLog()
-        => Duration = EndDate.Subtract(StarDate).TotalDays;
+    public MissionLog(string missionName, string missionStats, string subject, string report, DateTime starDate, DateTime endDate, int starshipId)
+    {
+        MissionName = missionName;
+        MissionStats = missionStats;
+        Subject = subject;
+        Report = report;
+        StarDate = starDate;
+        EndDate = endDate;
+        Duration = SetDuration(starDate, endDate);
+        StarshipId = starshipId;
+    }
+
+    public double SetDuration(DateTime starDate, DateTime endDate)
+        => endDate.Subtract(starDate).TotalHours;
 }
