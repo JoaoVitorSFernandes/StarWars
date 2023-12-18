@@ -1,4 +1,4 @@
-namespace StarWars.ViewModels;
+namespace StarWars;
 
 public class SmtpConfiguration
 {

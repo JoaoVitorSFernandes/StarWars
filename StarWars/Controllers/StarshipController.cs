@@ -10,7 +10,12 @@ namespace StarWars.Controllers;
 [ApiController]
 public class StarshipController : ControllerBase
 {
-    private readonly StarshipManager _starshipManager;
+    private readonly IStarshipManager _starshipManager;
+
+    public StarshipController(IStarshipManager starshipManager)
+    {
+        _starshipManager = starshipManager;
+    }
 
     [HttpGet("v1/starship/")]
     public async Task<IActionResult> GetAsync()
@@ -94,12 +99,13 @@ public class StarshipController : ControllerBase
             model.name,
             model.model,
             model.manufacturer,
-            Convert.ToInt32(model.costInCredits),
+            Convert.ToInt32(model.cost_in_credits),
             model.crew,
             Convert.ToInt32(model.passengers),
-            Convert.ToInt32(model.cargoCapacity),
-            model.starshipClass
+            Convert.ToInt32(model.cargo_capacity),
+            model.starship_class
         );
+        starship.UserId = model.UserId;
 
         await _starshipManager.Insert(starship);
 
@@ -120,10 +126,10 @@ public class StarshipController : ControllerBase
         starship.Name = model.name;
         starship.Model = model.model;
         starship.Manufacturer = model.manufacturer;
-        starship.CostInCredits = Convert.ToInt32(model.costInCredits);
+        starship.CostInCredits = Convert.ToInt32(model.cost_in_credits);
         starship.Passengers = Convert.ToInt32(model.passengers);
-        starship.CargoCapacity = Convert.ToInt32(model.cargoCapacity);
-        starship.StarshipClass = model.starshipClass;
+        starship.CargoCapacity = Convert.ToInt32(model.cargo_capacity);
+        starship.StarshipClass = model.starship_class;
 
         await _starshipManager.Update(id, starship);
 
@@ -138,5 +144,4 @@ public class StarshipController : ControllerBase
         await _starshipManager.Delete(id);
         return Ok(new ResultViewModel<string>("Starship registration successfully deleted", null));
     }
-
 }

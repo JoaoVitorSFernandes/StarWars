@@ -23,7 +23,7 @@ public class MaintenanceLogMap : IEntityTypeConfiguration<MaintenanceLog>
             .HasColumnType("NVARCHAR")
             .HasMaxLength(120);
 
-        builder.Property(x => x.Subject)
+        builder.Property(x => x.Report)
             .IsRequired()
             .HasColumnName("Report")
             .HasColumnType("NVARCHAR")

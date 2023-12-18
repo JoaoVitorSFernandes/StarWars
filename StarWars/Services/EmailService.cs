@@ -1,6 +1,6 @@
 using System.Net;
 using System.Net.Mail;
-using StarWars.ViewModels;
+using StarWars;
 
 namespace StarWars.Services;
 

@@ -65,14 +65,11 @@ public class StarshipMap : IEntityTypeConfiguration<Starship>
             .HasColumnType("NVARCHAR")
             .HasMaxLength(60);
 
-        builder.HasIndex(x => x.Name, "IX_MissionLog_Name")
-            .IsUnique();
+        builder.HasIndex(x => x.Name, "IX_Starship_Name");
 
-        builder.HasIndex(x => x.Model, "IX_MissionLog_Model")
-            .IsUnique();
+        builder.HasIndex(x => x.Model, "IX_Starship_Model");
 
-        builder.HasIndex(x => x.Manufacturer, "IX_Starship_Manafacturer")
-            .IsUnique();
+        builder.HasIndex(x => x.Manufacturer, "IX_Starship_Manafacturer");
 
         builder.HasOne(x => x.User)
             .WithMany(x => x.Starships)

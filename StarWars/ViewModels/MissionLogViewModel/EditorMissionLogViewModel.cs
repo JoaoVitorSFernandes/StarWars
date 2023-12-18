@@ -8,7 +8,5 @@ public class EditorMissionLogViewModel
     public string Report { get; set; }
     public DateTime StarDate { get; set; }
     public DateTime EndDate { get; set; }
-    public double Duration { get; set; }
-
     public int StarshipId { get; set; }
 }

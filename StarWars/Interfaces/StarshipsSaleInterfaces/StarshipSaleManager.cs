@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Microsoft.Extensions.Caching.Memory;
 using StarWars.ViewModels.StarshipViewModel;
+using StarWars.ViewModels.SWAPIViewModel;
 
 namespace StarWars.Interfaces.StarshipsSaleInterfaces;
 
@@ -15,7 +16,7 @@ public class StarshipSaleManager : IStarshipSaleManager
         _cache = cache;
     }
 
-    public async Task<IEnumerable<EditorStarshipViewModel>> GetAll()
+    public async Task<IEnumerable<StarshipViewModel>> GetAll()
     {
         var Starships = await _cache.GetOrCreateAsync("SWAPIStarshipResponse", entry =>
         {
@@ -26,7 +27,7 @@ public class StarshipSaleManager : IStarshipSaleManager
         return Starships;
     }
 
-    public async Task<IEnumerable<EditorStarshipViewModel>> GetByManufacturer(string starshipManufacturer, int page = 0, int pageSize = 10)
+    public async Task<IEnumerable<StarshipViewModel>> GetByManufacturer(string starshipManufacturer, int page = 0, int pageSize = 10)
     {
         var starships = await GetAll();
 
@@ -36,7 +37,7 @@ public class StarshipSaleManager : IStarshipSaleManager
         return starships;
     }
 
-    public async Task<IEnumerable<EditorStarshipViewModel>> GetByModel(string starshipModel, int page = 0, int pageSize = 10)
+    public async Task<IEnumerable<StarshipViewModel>> GetByModel(string starshipModel, int page = 0, int pageSize = 10)
     {
         var starships = await GetAll();
 
@@ -46,25 +47,30 @@ public class StarshipSaleManager : IStarshipSaleManager
         return starships;
     }
 
-    public async Task<IEnumerable<EditorStarshipViewModel>> GetByName(string starshipName, int page = 0, int pageSize = 10)
+    public async Task<StarshipViewModel> GetByName(string starshipName)
     {
         var starships = await GetAll();
 
-        starships = starships.Where(x => x.name == starshipName)
-                        .Skip(page * pageSize).Take(pageSize).ToList();
+        var starship = starships.Where(x => x.name == starshipName).First();
 
-        return starships;
+        return starship;
     }
 
-    private async Task<IEnumerable<EditorStarshipViewModel>> GetSWAPIStarships()
+    private async Task<IEnumerable<StarshipViewModel>> GetSWAPIStarships()
     {
-        using HttpClient client = new HttpClient();
+        try
+        {
+            using HttpClient client = new HttpClient();
 
-        var response = await client.GetAsync(_configuration.GetValue<string>("SWAPI:Connection"));
-        var content = response.Content.ReadAsStringAsync().Result;
-        var result = JsonSerializer.Deserialize<StarshipResponseViewModel>(content);
+            var response = await client.GetAsync(_configuration.GetValue<string>("SWAPI:Connection"));
+            var content = response.Content.ReadAsStringAsync().Result;
+            var starships = JsonSerializer.Deserialize<SWAPIResponseViewModel>(content);
 
-        return result.Starships;
+            return starships.results;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
     }
-
 }

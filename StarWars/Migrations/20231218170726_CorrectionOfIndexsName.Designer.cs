@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StarWars.Data;
 
@@ -11,9 +12,11 @@ using StarWars.Data;
 namespace StarWars.Migrations
 {
     [DbContext(typeof(StarWarsDataContext))]
-    partial class StarWarsDataContextModelSnapshot : ModelSnapshot
+    [Migration("20231218170726_CorrectionOfIndexsName")]
+    partial class CorrectionOfIndexsName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,9 +51,7 @@ namespace StarWars.Migrations
 
                     b.Property<string>("Report")
                         .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("NVARCHAR")
-                        .HasColumnName("Report");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StarDate")
                         .HasMaxLength(60)
@@ -62,16 +63,20 @@ namespace StarWars.Migrations
 
                     b.Property<string>("Subject")
                         .IsRequired()
-                        .HasMaxLength(120)
+                        .HasMaxLength(300)
                         .HasColumnType("NVARCHAR")
-                        .HasColumnName("Subject");
+                        .HasColumnName("Report");
 
                     b.HasKey("Id")
                         .HasName("PK_MaintenanceLogId");
 
                     b.HasIndex("StarshipId");
 
-                    b.ToTable("MaintenanceLog", (string)null);
+                    b.ToTable("MaintenanceLog", null, t =>
+                        {
+                            t.Property("Report")
+                                .HasColumnName("Report1");
+                        });
                 });
 
             modelBuilder.Entity("StarWars.Models.MissionLog", b =>
@@ -106,9 +111,7 @@ namespace StarWars.Migrations
 
                     b.Property<string>("Report")
                         .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("NVARCHAR")
-                        .HasColumnName("Report");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StarDate")
                         .HasMaxLength(60)
@@ -120,9 +123,9 @@ namespace StarWars.Migrations
 
                     b.Property<string>("Subject")
                         .IsRequired()
-                        .HasMaxLength(120)
+                        .HasMaxLength(300)
                         .HasColumnType("NVARCHAR")
-                        .HasColumnName("Subject");
+                        .HasColumnName("Report");
 
                     b.HasKey("Id")
                         .HasName("PK_MissionLogId");
@@ -132,7 +135,11 @@ namespace StarWars.Migrations
                     b.HasIndex(new[] { "MissionName" }, "IX_MissionLog_MissionName")
                         .IsUnique();
 
-                    b.ToTable("MissionLog", (string)null);
+                    b.ToTable("MissionLog", null, t =>
+                        {
+                            t.Property("Report")
+                                .HasColumnName("Report1");
+                        });
                 });
 
             modelBuilder.Entity("StarWars.Models.Role", b =>

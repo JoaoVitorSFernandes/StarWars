@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using StarWars.Interfaces.MaintenanceLogInterfaces;
 using StarWars.Interfaces.MissionLogInterfaces;
 using StarWars.Models;
 using StarWars.ViewModels;
@@ -9,7 +10,12 @@ namespace StarWars.Controllers;
 [ApiController]
 public class MaintenanceLogController : ControllerBase
 {
-    private readonly MaintenanceLogManager _maintenanceLogManager;
+    private readonly IMaintenanceLogManager _maintenanceLogManager;
+
+    public MaintenanceLogController(IMaintenanceLogManager maintenanceLogManager)
+    {
+        _maintenanceLogManager = maintenanceLogManager;
+    }
 
     [HttpGet("v1/maintenances/")]
     public async Task<IActionResult> GetAll()
@@ -74,6 +80,7 @@ public class MaintenanceLogController : ControllerBase
             model.EndDate,
             model.StarshipId
         );
+        maintenance.StarshipId = model.StarshipId;
 
         await _maintenanceLogManager.Insert(maintenance);
 

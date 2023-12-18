@@ -9,7 +9,12 @@ namespace StarWars.Controllers;
 [ApiController]
 public class UserController : ControllerBase
 {
-    private readonly UserManager _userManager;
+    private readonly IUserManager _userManager;
+
+    public UserController(IUserManager userManager)
+    {
+        _userManager = userManager;
+    }
 
     [HttpGet("v1/user/")]
     public async Task<IActionResult> GetAllAsync()

@@ -13,8 +13,12 @@ namespace StarWars.Controllers;
 [ApiController]
 public class AccountController : ControllerBase
 {
-    private readonly UserManager _userManager;
+    private readonly IUserManager _userManager;
 
+    public AccountController(IUserManager userManager)
+    {
+        _userManager = userManager;
+    }
 
     [HttpPost("v1/accounts/signin")]
     public async Task<IActionResult> SignIn(

@@ -4,6 +4,13 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using StarWars.Data;
+using StarWars.Interfaces.Base;
+using StarWars.Interfaces.MaintenanceLogInterfaces;
+using StarWars.Interfaces.MissionLogInterfaces;
+using StarWars.Interfaces.StarshipsInterfaces;
+using StarWars.Interfaces.StarshipsSaleInterfaces;
+using StarWars.Interfaces.UserInterfaces;
+using StarWars.Models;
 using StarWars.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -48,6 +55,7 @@ void ConfigureAuthentication(WebApplicationBuilder builder)
 
 void ConfigureMvc(WebApplicationBuilder builder)
 {
+    builder.Services.AddOptions();
     builder.Services.AddMemoryCache();
 
     builder
@@ -72,6 +80,14 @@ void ConfigureMvc(WebApplicationBuilder builder)
 void ConfigureServices(WebApplicationBuilder builder)
 {
     builder.Services.AddDbContext<StarWarsDataContext>();
+    
+    builder.Services.AddTransient<StarWarsDataContext>();
     builder.Services.AddTransient<TokenService>();
     builder.Services.AddTransient<EmailService>();
+
+    builder.Services.AddScoped<IUserManager, UserManager>();
+    builder.Services.AddScoped<IStarshipManager, StarshipManager>();
+    builder.Services.AddScoped<IStarshipSaleManager, StarshipSaleManager>();
+    builder.Services.AddScoped<IMissionLogManager, MissionLogManager>();
+    builder.Services.AddScoped<IMaintenanceLogManager , MaintenanceLogManager>();
 }

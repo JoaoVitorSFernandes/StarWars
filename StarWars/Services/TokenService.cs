@@ -4,8 +4,6 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using StarWars.Extensions;
 using StarWars.Models;
-using System.Web;
-using Azure;
 
 namespace StarWars.Services;
 

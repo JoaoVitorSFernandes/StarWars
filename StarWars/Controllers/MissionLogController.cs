@@ -9,7 +9,12 @@ namespace StarWars.Controllers;
 [ApiController]
 public class MissionLogController : ControllerBase
 {
-    private readonly MissionLogManager _missionLogManager;
+    private readonly IMissionLogManager _missionLogManager;
+
+    public MissionLogController(IMissionLogManager missionLogManager)
+    {
+        _missionLogManager = missionLogManager;
+    }
 
     [HttpGet("v1/missionlogs/")]
     public async Task<IActionResult> GetAll()
@@ -23,7 +28,7 @@ public class MissionLogController : ControllerBase
     }
 
 
-    [HttpGet("v1/missionlogs/{int:id}")]
+    [HttpGet("v1/missionlogs/{id:int}")]
     public async Task<IActionResult> GetById(
         [FromRoute] int id)
     {
@@ -89,6 +94,7 @@ public class MissionLogController : ControllerBase
             model.EndDate,
             model.StarshipId
         );
+        missionLog.StarshipId = model.StarshipId;
 
         await _missionLogManager.Insert(missionLog);
 
@@ -117,7 +123,7 @@ public class MissionLogController : ControllerBase
     }
 
 
-    [HttpDelete("v1/missionlogs/{int:id}")]
+    [HttpDelete("v1/missionlogs/{id:int}")]
     public async Task<IActionResult> Delete(
         [FromRoute] int id)
     {
